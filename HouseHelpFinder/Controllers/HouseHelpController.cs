@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace HouseHelpFinder.Controllers
@@ -20,9 +21,7 @@ namespace HouseHelpFinder.Controllers
 
         public ViewResult Index()
         {
-            return View(new Dictionary<string, object>
-            {
-                ["Placeholder"] = "Placeholder" });
+            return View(GetUsersData());
         }
 
         [AllowAnonymous]
@@ -88,5 +87,14 @@ namespace HouseHelpFinder.Controllers
                 ModelState.AddModelError("", error.Description);
             }
         }
+
+        private Dictionary<string, object> GetUsersData() => new Dictionary<string, object>
+        {
+            ["Name"] = CurrentUser.Name,
+            ["Email"] = CurrentUser.Email,
+            ["Available"] = CurrentUser.isAvailable ? "Yes, people can look at my details and message me for opportunities" : "No, no one can message me",
+        };
+
+        private ApplicationUser CurrentUser => _userManager.Users.Single(user => user.UserName == HttpContext.User.Identity.Name);
     }
 }
