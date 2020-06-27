@@ -1,0 +1,23 @@
+﻿@model IEnumerable<ApplicationUser>
+
+@if (Model.Count() == 0)
+{
+    <div class="card card-outline-primary m-1 p-1">
+        <h4>No available house helps at the moment.</h4>
+    </div>
+}
+else
+{
+    @foreach (var user in Model)
+    {
+        <div class="card card-outline-primary m-1 p-1">
+            <div class="bg-faded p-1">
+                <h4>PROFILE PHOTO</h4>
+                <span class="badge badge-pill badge-primary" style="float:right">
+                    <small>@user.Name</small>
+                </span>
+            </div>
+            <div class="card-text p-1">Description of the househelp's expectations.</div>
+        </div>
+    }
+}
