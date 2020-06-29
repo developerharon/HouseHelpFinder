@@ -8,7 +8,7 @@
     <title>HouseHelp Finder</title>
 
     <link rel="stylesheet" href="/lib/twitter-bootstrap/css/bootstrap.css" />
-    <link rel="stylesheet" asp-href-include="/css/**/*.css" />
+    <link rel="stylesheet" href="/css/CustomStyle.css" />
 </head>
 <body>
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
@@ -30,25 +30,15 @@
                 <li class="nav-item">
                     <a class="nav-link" href="#">Contact Us</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-                </li>
             </ul>
-            <form class="form-inline mt-2 mt-md-0">
-                <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" />
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-            </form>
+            <div class="form-inline mt-2 mt-md-0">
+                <a asp-action="Create" asp-controller="HouseHelp" class="btn btn-outline-success my-2 my-sm-0">Sign up</a>
+                <a asp-action="Login" asp-controller="Account" class="btn btn-outline-success my-2 my-sm-0" style="padding-left:10px">Sign in</a>
+            </div>
         </div>
     </nav>
 
-    <div class="row m-1 p-1">
-        <div id="categories" class="col-3">
-            Put something useful here lter
-        </div>
-        <div class="col-9">
-            @RenderBody()
-        </div>
-    </div>
+    @RenderBody()
 
     <script src="/lib/jquery/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script>window.jQuery || document.write('<script src="/lib/jquery/jquery.slim.min.js"><\/script')</script>

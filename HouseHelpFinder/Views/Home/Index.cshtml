@@ -1,23 +1,64 @@
-﻿@model IEnumerable<ApplicationUser>
+﻿@{
+    Layout=null;
+}
 
-@if (Model.Count() == 0)
-{
-    <div class="card card-outline-primary m-1 p-1">
-        <h4>No available house helps at the moment.</h4>
-    </div>
-}
-else
-{
-    @foreach (var user in Model)
-    {
-        <div class="card card-outline-primary m-1 p-1">
-            <div class="bg-faded p-1">
-                <h4>PROFILE PHOTO</h4>
-                <span class="badge badge-pill badge-primary" style="float:right">
-                    <small>@user.Name</small>
-                </span>
-            </div>
-            <div class="card-text p-1">Description of the househelp's expectations.</div>
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="We connect house helps with people that need their services" />
+    <meta name="keywords" content="house-help,house-girl,house-boy" />
+    <title>HouseHelp Finder</title>
+
+    <link rel="stylesheet" href="/lib/twitter-bootstrap/css/bootstrap.css" />
+    <link rel="stylesheet" href="/css/CoverPage.css" />
+</head>
+<body>
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+        <a class="navbar-brand" asp-action="Index">HouseHelp Finder</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toogle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" asp-action="Index">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Our Services</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">About Us</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Contact Us</a>
+                </li>
+            </ul>
+            <form class="form-inline mt-2 mt-md-0">
+                <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" />
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            </form>
         </div>
-    }
-}
+    </nav>
+
+    <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column text-center">
+        <div role="main" class="inner cover">
+            <h1 class="cover-heading">Welcome to HouseHelp Finder</h1>
+            <p class="lead">Hello there!<br /> We at HouseHelp finder ensure you get the house help services you need by connecting you up with our diverse list of available personnel</p>
+            <p>
+                <a asp-action="List" class="btn btn-outline-success my-2 my-sm-0">See The Whole List</a>
+            </p>
+
+            <p class="lead">Are you also hoping to get the right connection to your next paycheck, look no further and register with use now</p>
+            <p>
+                <a asp-controller="HouseHelp" asp-action="Create" class="btn btn-outline-success my-2 my-sm-0">Sign up</a>
+            </p>
+        </div>
+    </div>
+
+    <script src="/lib/jquery/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script>window.jQuery || document.write('<script src="/lib/jquery/jquery.slim.min.js"><\/script')</script>
+    <script src="/lib/twitter-bootstrap/js/bootstrap.bundle.js"></script>
+</body>
+</html>
