@@ -3,6 +3,7 @@ using HouseHelpFinder.Models.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -88,13 +89,25 @@ namespace HouseHelpFinder.Controllers
             }
         }
 
-        private Dictionary<string, object> GetUsersData() => new Dictionary<string, object>
+        private ProfileViewModel GetUsersData() => new ProfileViewModel
         {
-            ["Name"] = CurrentUser.Name,
-            ["Email"] = CurrentUser.Email,
-            ["Available"] = CurrentUser.isAvailable ? "Yes, people can look at my details and message me for opportunities" : "No, no one can message me",
+            ProfilePictureUrl = this.ProfilePictureUrl,
+            Username = CurrentUser.UserName,
+            Name = CurrentUser.Name,
+            Description = CurrentUser.Description,
+            Email = CurrentUser.Email,
+            isAvailable = CurrentUser.isAvailable,
         };
 
         private ApplicationUser CurrentUser => _userManager.Users.Single(user => user.UserName == HttpContext.User.Identity.Name);
-    }
+        private string ProfilePictureUrl
+        {
+            get
+            {
+                if (CurrentUser.ProfilePicture == null) return null;
+
+                return String.Format("data:image/jpg;base64, {0}", Convert.ToBase64String(CurrentUser.ProfilePicture));
+            }
+        }
+}
 }
