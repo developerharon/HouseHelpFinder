@@ -2,37 +2,39 @@
 
 <div class="bg-primary m-1 p-1 text-white"><h4>User Details</h4></div>
 
-<div>
-    <img src="@Model.ProfilePictureUrl" alt="Profile-Image" class="rounded-circle text-center" height="250" width="250" />
+<div class="container">
+    <div class="text-center">
+        <img src="@Model.ProfilePictureUrl" alt="Profile-Image" class="rounded-circle" height="250" width="250" />
+    </div>
+    <table class="table table-sm m-1 p-1">
+        <tr>
+            <th>Username:</th>
+            <td>@Model.Username</td>
+        </tr>
+        <tr>
+            <th>Name:</th>
+            <td>@Model.Name</td>
+        </tr>
+        <tr>
+            <th>Description:</th>
+            <td>@Model.Description</td>
+        </tr>
+        <tr>
+            <th>Email:</th>
+            <td>@Model.Email</td>
+        </tr>
+        <tr>
+            <th>Available For Hire:</th>
+            @if (Model.isAvailable)
+            {
+                <td>Yes</td>
+            }
+            else
+            {
+                <td>No</td>
+            }
+        </tr>
+    </table>
+    <a class="btn btn-outline-success" asp-action="Edit">Edit Account</a>
+    <a class="btn btn-outline-danger">Logout</a>
 </div>
-<table class="table table-sm table-bordered m-1 p-1">
-    <tr>
-        <th>Username:</th>
-        <td>@Model.Username</td>
-    </tr>
-    <tr>
-        <th>Name:</th>
-        <td>@Model.Name</td>
-    </tr>
-    <tr>
-        <th>Description:</th>
-        <td>@Model.Description</td>
-    </tr>
-    <tr>
-        <th>Email:</th>
-        <td>@Model.Email</td>
-    </tr>
-    <tr>
-        <th>Available For Hire:</th>
-        @if (Model.isAvailable)
-        {
-            <td>Yes</td>
-        }
-        else
-        {
-            <td>No</td>
-        }
-    </tr>
-</table>
-<a class="btn btn-outline-success" asp-action="Edit">Edit Account</a>
-<a class="btn btn-outline-danger">Logout</a>
