@@ -15,17 +15,21 @@
         {
             @foreach (var user in Model)
             {
-                <div class="card mb-4 shadow-sm col-md-3">
-                    <div class="card-header">
-                        <h4 class="my-0 font-weight-normal">@user.UserName</h4>
-                    </div>
-                    <div class="card-body">
-                        <img src="@String.Format("data:image/jpg;base64, {0}", Convert.ToBase64String(user.ProfilePicture))" height="225" width="200" class="card-img card-img-top" />
-                        <div class="text-left">
-                            <p><span class="font-weight-bold">Name: </span>@user.Name</p>
-                            <p><span class="font-weight-bold">Description: </span>@user.Description</p>
+                <div class="col-md-4">
+                    <div class="card mb-4 shadow-sm">
+
+                        <div class="card-header">
+                            <h4 class="my-0 font-weight-normal">@String.Concat("@", user.UserName)</h4>
                         </div>
-                        <a asp-route-id="@user.Id" class="btn btn-lg btn-block btn-outline-success">Contact</a>
+                        <div class="card-body">
+                            <img src="@String.Format("data:image/jpg;base64, {0}", Convert.ToBase64String(user.ProfilePicture))" height="225" width="200" class="card-img card-img-top" />
+                            <div class="text-left">
+                                <br />
+                                <p><span class="font-weight-bold">Name: </span>@user.Name</p>
+                                <p><span class="font-weight-bold">Description: </span>@user.Description</p>
+                            </div>
+                            <a asp-route-id="@user.Id" class="btn btn-lg btn-block btn-outline-success">Contact</a>
+                        </div>
                     </div>
                 </div>
             }
