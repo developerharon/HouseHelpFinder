@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
+using System.Collections.Generic;
 
 namespace HouseHelpFinder.Models.ViewModels
 {
@@ -12,5 +13,7 @@ namespace HouseHelpFinder.Models.ViewModels
         public string Description { get; set; }
         public string Email { get; set; }
         public bool isAvailable { get; set; }
+
+        public List<ReachOutModel> ReachOuts { get; set; }
     }
 }

@@ -157,6 +157,7 @@ namespace HouseHelpFinder.Controllers
             Description = CurrentUser.Description,
             Email = CurrentUser.Email,
             isAvailable = CurrentUser.isAvailable,
+            ReachOuts = CurrentUser.ReachOuts
         };
 
         private ApplicationUser CurrentUser => _userManager.Users.Single(user => user.UserName == HttpContext.User.Identity.Name);

@@ -35,6 +35,37 @@
             }
         </tr>
     </table>
+
+    <hr />
+    <h4>Reach Out Requests</h4>
+    @if (Model.ReachOuts.Count == 0)
+    {
+        <p class="alert alert-info">No Reach Outs at the moment</p>
+    }
+    else
+    {
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Phone</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var reachout in Model.ReachOuts)
+                {
+                    <tr>
+                        <td>@reachout.Name</td>
+                        <td>@reachout.Phone</td>
+                        <td>@reachout.Description</td>
+                    </tr>
+                }
+            </tbody>
+
+        </table>
+    }
+
     <a class="btn btn-outline-success" asp-action="Edit">Edit Account</a>
     <a class="btn btn-outline-danger">Logout</a>
 </div>
