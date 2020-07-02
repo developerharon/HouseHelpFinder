@@ -28,7 +28,7 @@
                                 <p><span class="font-weight-bold">Name: </span>@user.Name</p>
                                 <p><span class="font-weight-bold">Description: </span>@user.Description</p>
                             </div>
-                            <a asp-route-id="@user.Id" class="btn btn-lg btn-block btn-outline-success">Contact</a>
+                            <a asp-action="ReachOut" asp-route-houseHelpId="@user.Id" class="btn btn-lg btn-block btn-outline-success">Reach Out</a>
                         </div>
                     </div>
                 </div>

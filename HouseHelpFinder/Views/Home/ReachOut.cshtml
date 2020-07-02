@@ -1,0 +1,23 @@
+﻿@model ReachOutViewModel
+
+<div class="bg-primary m-1 p-1 text-white"><h4>Reach Out Form</h4></div>
+
+<div asp-validation-summary="All" class="text-danger"></div>
+
+<form asp-action="ReachOut" method="post">
+    <input type="hidden" asp-for="HouseHelpId" />
+    <div class="form-group">
+        <label asp-for="Name"></label>
+        <input asp-for="Name" placeholder="Your name" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Phone"></label>
+        <input placeholder="Your phone number" asp-for="Phone" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Description"></label>
+        <textarea asp-for="Description" class="form-control" placeholder="Description of your expectations/salary"></textarea>
+    </div>
+    <button type="submit" class="btn btn-lg btn-outline-success">Reach Out</button>
+    <a asp-action="Index" class="btn btn-lg btn-outline-success">Cancel</a> 
+</form>
