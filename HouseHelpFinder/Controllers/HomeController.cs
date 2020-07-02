@@ -20,11 +20,6 @@ namespace HouseHelpFinder.Controllers
 
         public IActionResult Index()
         {
-            return View();
-        }
-
-        public IActionResult List()
-        {
             return View(_userManager.Users.Where(user => user.isAvailable));
         }
 

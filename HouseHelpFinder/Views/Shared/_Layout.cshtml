@@ -30,11 +30,28 @@
                 <li class="nav-item">
                     <a class="nav-link" href="#">Contact Us</a>
                 </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+                    <div class="dropdown-menu" aria-labelledby="dropdown01">
+                        <a class="dropdown-item" href="#">Action</a>
+                        <a class="dropdown-item" href="#">Action II</a>
+                        <a class="dropdown-item" href="#">Action III</a>
+                    </div>
+                </li>
             </ul>
-            <div class="form-inline mt-2 mt-md-0">
-                <a asp-action="Create" asp-controller="HouseHelp" class="btn btn-outline-success my-2 my-sm-0">Sign up</a>
-                <a asp-action="Login" asp-controller="Account" class="btn btn-outline-success my-2 my-sm-0" style="padding-left:10px">Sign in</a>
-            </div>
+            @if (User?.Identity?.IsAuthenticated ?? false)
+            {
+                <div class="my-2 my-lg-0">
+                    @await Component.InvokeAsync("LoginSummary") 
+                </div>
+            }
+            else
+            {
+                <div class="form-inline mt-2 mt-md-0">
+                    <a asp-action="Create" asp-controller="HouseHelp" class="btn btn-outline-success my-2 my-sm-0">Sign up</a>
+                    <a asp-action="Login" asp-controller="Account" class="btn btn-outline-success my-2 my-sm-0" style="margin-left:10px">Sign in</a>
+                </div>
+            }
         </div>
     </nav>
 

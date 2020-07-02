@@ -7,24 +7,11 @@
         <img src="@Model.ProfilePictureUrl" alt="Profile-Image" class="rounded-circle" height="250" width="250" />
     </div>
     <table class="table table-sm m-1 p-1">
-        <tr>
-            <th>Username:</th>
-            <td>@Model.Username</td>
-        </tr>
-        <tr>
-            <th>Name:</th>
-            <td>@Model.Name</td>
-        </tr>
-        <tr>
-            <th>Description:</th>
-            <td>@Model.Description</td>
-        </tr>
-        <tr>
-            <th>Email:</th>
-            <td>@Model.Email</td>
-        </tr>
-        <tr>
-            <th>Available For Hire:</th>
+        <tr><th>Username:</th><td>@Model.Username</td></tr>
+        <tr><th>Name:</th><td>@Model.Name</td></tr>
+        <tr><th>Description:</th><td>@Model.Description</td></tr>
+        <tr><th>Email:</th><td>@Model.Email</td></tr>
+        <tr><th>Available For Hire:</th>
             @if (Model.isAvailable)
             {
                 <td>Yes</td>
@@ -46,26 +33,15 @@
     {
         <table class="table table-striped">
             <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Phone</th>
-                    <th>Description</th>
-                </tr>
+                <tr><th>Name</th><th>Phone</th><th>Description</th></tr>
             </thead>
             <tbody>
                 @foreach (var reachout in Model.ReachOuts)
                 {
-                    <tr>
-                        <td>@reachout.Name</td>
-                        <td>@reachout.Phone</td>
-                        <td>@reachout.Description</td>
-                    </tr>
+                    <tr><td>@reachout.Name</td><td>@reachout.Phone</td><td>@reachout.Description</td></tr>
                 }
             </tbody>
 
         </table>
     }
-
-    <a class="btn btn-outline-success" asp-action="Edit">Edit Account</a>
-    <a class="btn btn-outline-danger" asp-action="Logout" asp-controller="Account">Logout</a>
 </div>

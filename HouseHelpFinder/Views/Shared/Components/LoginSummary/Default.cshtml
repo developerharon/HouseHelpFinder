@@ -1,0 +1,14 @@
+﻿@model string
+
+<ul class="navbar-nav mr-auto">
+    <li class="nav-item dropdown">
+        <a class="nav-link p-0" href="#" id="profileView" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <img src="@Model" class="rounded-circle" width="50" height="50" />
+        </a>
+        <div class="dropdown-menu dropdown-menu-lg-right" aria-labelledby="profileView">
+            <a class="dropdown-item" asp-action="Index" asp-controller="HouseHelp">View Profile</a>
+            <a class="dropdown-item" asp-action="Edit" asp-controller="HouseHelp">Edit Profile</a>
+            <a class="dropdown-item text-danger" asp-action="Logout" asp-controller="Account">Logout</a>
+        </div>
+    </li>
+</ul>
