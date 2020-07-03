@@ -19,7 +19,13 @@ namespace HouseHelpFinder.Components
         public IViewComponentResult Invoke()
         {
             var user = _context.Users.Single(user => user.UserName == User.Identity.Name);
-            string profilePictureUrl = string.Format("data:image/jpg;base64, {0}", Convert.ToBase64String(user.ProfilePicture));
+            string profilePictureUrl = null;
+
+            if (user.ProfilePicture != null)
+                profilePictureUrl = string.Format("data:image/jpg;base64, {0}", Convert.ToBase64String(user.ProfilePicture));
+            else
+                profilePictureUrl = "/images/profile-pic.png";
+
             return View("Default", profilePictureUrl);
         }
     }

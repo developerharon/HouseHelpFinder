@@ -2,6 +2,7 @@
 using HouseHelpFinder.Models.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -18,8 +19,11 @@ namespace HouseHelpFinder.Controllers
             _context = context;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(string searchParameter = null)
         {
+            if (searchParameter != null)
+                return View(_userManager.Users
+                    .Where(user => user.isAvailable && (user.UserName.Contains(searchParameter) || user.Name.Contains(searchParameter) || user.Description.Contains(searchParameter))));
             return View(_userManager.Users.Where(user => user.isAvailable));
         }
 
