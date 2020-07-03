@@ -1,23 +1,27 @@
 ﻿@model ReachOutViewModel
 
-<div class="bg-primary m-1 p-1 text-white"><h4>Reach Out Form</h4></div>
+    <div class="text-center">
+        <form asp-action="ReachOut" method="post" style="width:100%; max-width:330px; padding:15px; margin:auto">
+            <input type="hidden" asp-for="HouseHelpId" />
 
-<div asp-validation-summary="All" class="text-danger"></div>
-
-<form asp-action="ReachOut" method="post">
-    <input type="hidden" asp-for="HouseHelpId" />
-    <div class="form-group">
-        <label asp-for="Name"></label>
-        <input asp-for="Name" placeholder="Your name" class="form-control" />
+            <img class="mb-4" src="/images/profile-pic.png" alt="" width="72" height="72" />
+            <h1 class="h3 mb-3 font-weight-normal">Reach Out Form</h1>
+            <div class="form-group">
+                <label asp-for="Name" class="font-weight-bold"></label>
+                <input asp-for="Name" placeholder="name" class="form-control text-center" />
+                <div style="padding:3px"><span class="text-danger text-decoration-none"></span></div>
+            </div>
+            <div class="form-group">
+                <label asp-for="Phone" class="font-weight-bold"></label>
+                <input placeholder="phone number" asp-for="Phone" class="form-control text-center" />
+                <div style="padding:3px"><span class="text-danger text-decoration-none"></span></div>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="font-weight-bold"></label>
+                <textarea asp-for="Description" class="form-control text-center" placeholder="description of your expectations/salary"></textarea>
+                <div style="padding:3px"><span class="text-danger text-decoration-none"></span></div>
+            </div>
+            <button type="submit" class="btn btn-lg btn-outline-success">Reach Out</button>
+            <a asp-action="Index" class="btn btn-lg btn-outline-danger">Cancel</a>
+        </form>
     </div>
-    <div class="form-group">
-        <label asp-for="Phone"></label>
-        <input placeholder="Your phone number" asp-for="Phone" class="form-control" />
-    </div>
-    <div class="form-group">
-        <label asp-for="Description"></label>
-        <textarea asp-for="Description" class="form-control" placeholder="Description of your expectations/salary"></textarea>
-    </div>
-    <button type="submit" class="btn btn-lg btn-outline-success">Reach Out</button>
-    <a asp-action="Index" class="btn btn-lg btn-outline-danger">Cancel</a> 
-</form>
