@@ -2,6 +2,9 @@
 
 namespace HouseHelpFinder.Models.ViewModels
 {
+    /// <summary>
+    /// The view model used to get the data for changing the password
+    /// </summary>
     public class ChangePasswordViewModel
     {
         [Required]

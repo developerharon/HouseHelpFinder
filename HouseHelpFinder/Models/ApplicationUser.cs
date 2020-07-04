@@ -3,6 +3,9 @@ using System.Collections.Generic;
 
 namespace HouseHelpFinder.Models
 {
+    /// <summary>
+    /// The class that represents the user of the system in the database
+    /// </summary>
     public class ApplicationUser : IdentityUser
     {
         public string Name { get; set; }

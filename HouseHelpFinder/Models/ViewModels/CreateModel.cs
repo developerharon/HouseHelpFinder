@@ -2,6 +2,9 @@
 
 namespace HouseHelpFinder.Models.ViewModels
 {
+    /// <summary>
+    /// The view model used to get the data required to create a new account with the system
+    /// </summary>
     public class CreateModel
     {
         [Required]

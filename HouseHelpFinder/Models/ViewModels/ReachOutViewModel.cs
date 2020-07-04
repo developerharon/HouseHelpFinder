@@ -2,6 +2,9 @@
 
 namespace HouseHelpFinder.Models.ViewModels
 {
+    /// <summary>
+    /// The view model used to get the data to send a reach out request
+    /// </summary>
     public class ReachOutViewModel
     {
         [Required]

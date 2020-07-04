@@ -9,28 +9,44 @@ using System.Threading.Tasks;
 
 namespace HouseHelpFinder.Controllers
 {
+    /// <summary>
+    /// Contains all the administrative functions of the system
+    /// </summary>
     [Authorize(Roles = "Administrators")]
     public class AdminController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
 
+        /// <summary>
+        /// Uses dependency injection to get the required services
+        /// </summary>
         public AdminController(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
         {
             _userManager = userManager;
             _roleManager = roleManager;
         }
 
+
+        /// <summary>
+        /// Displays the system summary
+        /// </summary>
         public async Task<IActionResult> Index()
         {
             return View(await GetSystemSummaryAsync());
         }
 
+        /// <summary>
+        /// Lists all the administrators of the system.
+        /// </summary>
         public async Task<IActionResult> ListAdmins()
         {
             return View(await GetAdminsAsync());
         }
 
+        /// <summary>
+        /// Lists all the househelp registered with the system
+        /// </summary>
         public async Task<IActionResult> ListHouseHelps(string searchParameter = null)
         {
             var houseHelps = await GetHouseHelpsAsync();
@@ -41,12 +57,17 @@ namespace HouseHelpFinder.Controllers
             return View(houseHelps);
         }
 
+        /// <summary>
+        /// Renders the view used to create an administrative account.
+        /// </summary>
         public IActionResult Create() => View();
 
+        /// <summary>
+        /// Creates a new administrator account in the database
+        /// </summary>
         [HttpPost]
         public async Task<IActionResult> Create(CreateModel model)
         {
-            // Check if the model has all the properties filled
             if (ModelState.IsValid)
             {
                 if (model.Password != model.ConfirmPassword)
@@ -55,25 +76,21 @@ namespace HouseHelpFinder.Controllers
                     return View(model);
                 }
 
-                // Create a new Application User model
                 ApplicationUser user = new ApplicationUser
                 {
                     UserName = model.Username,
                     Email = model.Email
                 };
 
-                // Create the Account in the database
                 IdentityResult result = await _userManager.CreateAsync(user, model.Password);
 
-                // Check if the result operation completed successfully and if not add the errors to the model state.
                 if (result.Succeeded)
                 {
-                    // Check if the administrator role exists and if not create one
+
                     if (!await _roleManager.RoleExistsAsync("Administrators"))
                     {
                         result = await _roleManager.CreateAsync(new IdentityRole("Administrators"));
 
-                        // If there's an error creating the role, add a user friendly error to the user
                         if (!result.Succeeded)
                         {
                             ModelState.AddModelError("", "Error occured when creating the account");
@@ -81,7 +98,6 @@ namespace HouseHelpFinder.Controllers
                         }
                     }
 
-                    // Add the user to the administrator role
                     result = await _userManager.AddToRoleAsync(user, "Administrators");
 
                     if (!result.Succeeded)
@@ -90,7 +106,6 @@ namespace HouseHelpFinder.Controllers
                         return View(model);
                     }
 
-                    // Redirect the user to this action method if all the operations complete successfully
                     return RedirectToAction("Index");
                 }
                 else
@@ -101,11 +116,12 @@ namespace HouseHelpFinder.Controllers
                     }
                 }
             }
-
-            // Render the default view to show the errors to the user.
             return View(model);
         }
 
+        /// <summary>
+        /// Delete the user/admin account associated with the particular ID
+        /// </summary>
         [HttpPost]
         public async Task<IActionResult> Delete(string id)
         {
@@ -132,6 +148,9 @@ namespace HouseHelpFinder.Controllers
             return RedirectToAction("Index");
         }
 
+        /// <summary>
+        /// Returns a list of the administrators of the system
+        /// </summary>
         private async Task<List<ApplicationUser>> GetAdminsAsync()
         {
             List<ApplicationUser> admins = new List<ApplicationUser>();
@@ -145,6 +164,9 @@ namespace HouseHelpFinder.Controllers
             return admins;
         }
 
+        /// <summary>
+        /// Returns a list of all the househelps registered with the system.
+        /// </summary>
         private async Task<List<ApplicationUser>> GetHouseHelpsAsync()
         {
             List<ApplicationUser> houseHelps = new List<ApplicationUser>();
@@ -158,6 +180,9 @@ namespace HouseHelpFinder.Controllers
             return houseHelps;
         }
 
+        /// <summary>
+        /// Returns an object representing the system summary
+        /// </summary>
         private async Task<SystemSummaryViewModel> GetSystemSummaryAsync()
         {
             SystemSummaryViewModel systemSummary = new SystemSummaryViewModel();

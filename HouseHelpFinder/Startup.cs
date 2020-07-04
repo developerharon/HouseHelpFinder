@@ -20,11 +20,16 @@ namespace HouseHelpFinder
 
         public void ConfigureServices(IServiceCollection services)
         {
+            // Registered our database context class as a service
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(_configuration.GetConnectionString("DefaultConnection")));
+            
+            // Registered our ApplicationUser and IdentityRole as  service for our identity services
             services.AddIdentity<ApplicationUser, IdentityRole>(options =>
             {
                 options.User.RequireUniqueEmail = true;
             }).AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
+
+            // Registerd MVC
             services.AddMvc(options => options.EnableEndpointRouting = false);
         }
 
@@ -36,8 +41,14 @@ namespace HouseHelpFinder
                 app.UseStatusCodePages();
             }
 
+            // Configured our application to authenticate and authorize users
             app.UseAuthentication();
+            app.UseAuthorization();
+
+            // Configured our app to use static files, that is CSS and JS
             app.UseStaticFiles();
+
+            // Configured MVC
             app.UseMvc(routes =>
             {
                 routes.MapRoute(

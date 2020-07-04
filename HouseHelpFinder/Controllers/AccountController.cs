@@ -7,18 +7,27 @@ using System.Threading.Tasks;
 
 namespace HouseHelpFinder.Controllers
 {
+    /// <summary>
+    /// Manages Authentication and Authorization of application users
+    /// </summary>
     [Authorize]
     public class AccountController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
 
+        /// <summary>
+        /// Uses dependency injection to initialize the user and role managers objects
+        /// </summary>
         public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
         }
 
+        /// <summary>
+        /// Renders the default login view
+        /// </summary>
         [AllowAnonymous]
         public IActionResult Login(string returnUrl)
         {
@@ -26,6 +35,9 @@ namespace HouseHelpFinder.Controllers
             return View();
         }
 
+        /// <summary>
+        /// Checks if the user has entered valid credentials and if so logs him/her in.
+        /// </summary>
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -50,12 +62,18 @@ namespace HouseHelpFinder.Controllers
             return View(details);
         }
 
+        /// <summary>
+        /// Logs out the current user
+        /// </summary>
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
             return RedirectToAction("Index", "Home");
         }
 
+        /// <summary>
+        /// Displays access denied page if the user try to access resources they are not authorized to
+        /// </summary>
         [AllowAnonymous]
         public IActionResult AccessDenied()
         {

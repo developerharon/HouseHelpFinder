@@ -1,12 +1,13 @@
 ﻿using HouseHelpFinder.Models;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace HouseHelpFinder.Components
 {
+    /// <summary>
+    /// Renders the profile summary component when the user logs in and provides navigation to account specific functions.
+    /// </summary>
     public class LoginSummaryViewComponent : ViewComponent
     {
         private readonly ApplicationDbContext _context;
@@ -16,6 +17,10 @@ namespace HouseHelpFinder.Components
             _context = context;
         }
 
+        /// <summary>
+        /// Gets the current user from the database and generates a link for the profile picture else uses the default one, and passes it to the view
+        /// </summary>
+        /// <returns>The view component for the profile summary</returns>
         public IViewComponentResult Invoke()
         {
             var user = _context.Users.Single(user => user.UserName == User.Identity.Name);

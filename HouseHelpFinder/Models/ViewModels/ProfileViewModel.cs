@@ -3,6 +3,9 @@ using System.Collections.Generic;
 
 namespace HouseHelpFinder.Models.ViewModels
 {
+    /// <summary>
+    /// The view model that represents the data to be displayed in the profile page
+    /// </summary>
     public class ProfileViewModel
     {
         public string UserId { get; set; }

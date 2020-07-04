@@ -10,6 +10,9 @@ using System.Threading.Tasks;
 
 namespace HouseHelpFinder.Controllers
 {
+    /// <summary>
+    /// Contains all the househelp operations
+    /// </summary>
     [Authorize]
     public class HouseHelpController : Controller
     {
@@ -18,6 +21,9 @@ namespace HouseHelpFinder.Controllers
         private readonly IPasswordValidator<ApplicationUser> _passwordValidator;
         private readonly IPasswordHasher<ApplicationUser> _passwordHasher;
 
+        /// <summary>
+        /// Uses dependency injection to get the required services
+        /// </summary>
         public HouseHelpController(UserManager<ApplicationUser> userManager, IUserValidator<ApplicationUser> userValidator, IPasswordValidator<ApplicationUser> passwordValidator, IPasswordHasher<ApplicationUser> passwordHasher)
         {
             _userManager = userManager;
@@ -26,14 +32,23 @@ namespace HouseHelpFinder.Controllers
             _passwordHasher = passwordHasher;
         }
 
+        /// <summary>
+        /// Displays the user's profile including the reach out requests.
+        /// </summary>
         public ViewResult Index()
         {
             return View(GetUsersData());
         }
 
+        /// <summary>
+        /// Displays the form used to create a new account for the househelp
+        /// </summary>
         [AllowAnonymous]
         public ViewResult Create() => View();
 
+        /// <summary>
+        /// Creates the househelp account in the database
+        /// </summary>
         [HttpPost]
         [AllowAnonymous]
         public async Task<IActionResult> Create(CreateModel model)
@@ -69,32 +84,14 @@ namespace HouseHelpFinder.Controllers
             return View(model);
         }
 
-        public async Task<IActionResult> Delete(string id)
-        {
-            ApplicationUser user = await _userManager.FindByIdAsync(id);
-
-            if (user != null)
-            {
-                IdentityResult result = await _userManager.DeleteAsync(user);
-
-                if (result.Succeeded)
-                {
-                    return RedirectToAction("Index", "Home");
-                }
-                else
-                {
-                    AddErrorsFromResult(result);
-                }
-            }
-            else
-            {
-                ModelState.AddModelError("", "User Not Found");
-            }
-            return RedirectToAction("Index");
-        }
-
+        /// <summary>
+        /// Displays the form used to edit the househelp account
+        /// </summary>
         public IActionResult Edit() => View(GetUsersData());
 
+        /// <summary>
+        /// Saves the account changes to the database
+        /// </summary>
         [HttpPost]
         public async Task<IActionResult> Edit(ProfileViewModel model)
         {
@@ -149,61 +146,60 @@ namespace HouseHelpFinder.Controllers
             return View(model);
         }
 
+        /// <summary>
+        /// Displays the form used to change the password
+        /// </summary>
         public IActionResult ChangePassword() => View(new ChangePasswordViewModel() { HouseHelpId = CurrentUser.Id });
 
+        /// <summary>
+        /// Saves the new password to the database if it is a valid password
+        /// </summary>
         [HttpPost]
         public async Task<IActionResult> ChangePassword(ChangePasswordViewModel model)
         {
-            // Checks that all the fields are filled before being submitted
             if (ModelState.IsValid)
             {
-                // Checks that the user has entered the correct password
                 if (model.NewPassword != model.ConfirmNewPassword)
                 {
                     ModelState.AddModelError("", "Passwords do not match");
                     return View(model);
                 }
 
-                // Get's the user object from the database
                 ApplicationUser user = await _userManager.FindByIdAsync(model.HouseHelpId);
 
-                // If the user is not found render the default view to show the error.
                 if (user == null)
                 {
                     ModelState.AddModelError("", "User Not Found");
                     return View(model);
                 }
 
-                // Checks the user has entered the right current password
                 if (!await _userManager.CheckPasswordAsync(user, model.CurrentPassword))
                 {
                     ModelState.AddModelError("", "Wrong current password! Change not authorized");
                     return View(model);
                 } 
 
-                // Validates that the new password is strong.
                 IdentityResult validateNewPassword = await _passwordValidator.ValidateAsync(_userManager, user, model.NewPassword);
 
-                // If the new password is strong, hash it and save it to the user object else add errors from the operation above
                 if (validateNewPassword.Succeeded)
                     user.PasswordHash = _passwordHasher.HashPassword(user, model.NewPassword);
                 else
                     AddErrorsFromResult(validateNewPassword);
 
-                // Update the user object in the database to reflect the new password.
                 IdentityResult result = await _userManager.UpdateAsync(user);
 
-                // If the operation is successful redirect the user to the profile page else add errors to the model state
                 if (result.Succeeded)
                     return RedirectToAction("Index");
                 else
                     AddErrorsFromResult(result);
             }
 
-            // Render the default view to show the errors
             return View(model);
         }
 
+        /// <summary>
+        /// Adds a list of erros to the model state to be returned to the user
+        /// </summary>
         private void AddErrorsFromResult(IdentityResult result)
         {
             foreach (IdentityError error in result.Errors)
@@ -212,6 +208,9 @@ namespace HouseHelpFinder.Controllers
             }
         }
 
+        /// <summary>
+        /// Creates and returns a view model that represent the current user to displayed in the profile page
+        /// </summary>
         private ProfileViewModel GetUsersData() => new ProfileViewModel
         {
             UserId = CurrentUser.Id,
@@ -224,6 +223,9 @@ namespace HouseHelpFinder.Controllers
             ReachOuts = CurrentUser.ReachOuts
         };
 
+        /// <summary>
+        /// Get's an object from the database that represents the current user
+        /// </summary>
         private ApplicationUser CurrentUser => _userManager.Users.Single(user => user.UserName == HttpContext.User.Identity.Name);
         private string ProfilePictureUrl
         {

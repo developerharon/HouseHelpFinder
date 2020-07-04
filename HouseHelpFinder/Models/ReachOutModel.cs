@@ -2,6 +2,9 @@
 
 namespace HouseHelpFinder.Models
 {
+    /// <summary>
+    /// The class that represents the reach out request in the database
+    /// </summary>
     [Owned]
     public class ReachOutModel
     {

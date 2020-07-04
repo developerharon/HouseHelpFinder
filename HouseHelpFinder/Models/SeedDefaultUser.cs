@@ -1,11 +1,13 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore.Internal;
-using System.ComponentModel.Design.Serialization;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace HouseHelpFinder.Models
 {
+    /// <summary>
+    /// The class used to seed the default admin account in the database when the system is first used
+    /// </summary>
     public class SeedDefaultUser
     {
         private class Authorization
