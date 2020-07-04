@@ -1,0 +1,15 @@
+﻿@model SystemSummaryViewModel
+
+<div class="text-center" style="padding-top:0.4rem">
+    <img class="mb-4" src="/images/profile-pic.png" alt="" width="72" height="72" />
+    <h1 class="h3 mb-3 font-weight-normal text-center">System Summary Information</h1>
+</div>
+
+<div class="container">
+    <table class="table table-bordered">
+        <tr><th>Total Users Count:</th><td>@Model.TotalUsers</td></tr>
+        <tr><th>Total HouseHelp Count:</th><td>@Model.TotalHouseHelps</td></tr>
+        <tr><th>Total Administrators Count:</th><td>@Model.TotalAdmins</td></tr>
+        <tr><th>Total ReachOuts Sent:</th><td>@Model.TotalReachOutsSent</td></tr>
+    </table>
+</div>

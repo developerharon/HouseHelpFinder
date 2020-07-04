@@ -1,0 +1,25 @@
+﻿@model CreateModel
+
+<div class="text-center">
+    <form asp-action="Create" method="post" style="width:100%; max-width:330px; padding:15px; margin:auto">
+        <img class="mb-4" src="/images/profile-pic.png" alt="" width="72" height="72" />
+        <h1 class="h3 mb-3 font-weight-normal">Create Admin Account</h1>
+        <div class="form-group">
+            <label class="sr-only" asp-for="Username"></label>
+            <input asp-for="Username" class="form-control text-center" placeholder="username" />
+            <div style="padding:3px"><span asp-validation-for="Username" class="text-danger text-decoration-none"></span></div>
+        </div>
+        <div class="form-group">
+            <label class="sr-only" asp-for="Email"></label>
+            <input asp-for="Email" class="form-control text-center" placeholder="someone@emaill.com" />
+            <div style="padding:3px"><span asp-validation-for="Email" class="text-danger text-decoration-none"></span></div>
+        </div>
+        <div class="form-group">
+            <label class="sr-only" asp-for="Password"></label>
+            <input asp-for="Password" class="form-control text-center" placeholder="password" />
+            <div style="padding:3px"><span asp-validation-for="Password" class="text-danger text-decoration-none"></span></div>
+        </div>
+        <button type="submit" class="btn btn-lg btn-outline-success">Register</button>
+        <a asp-controller="Home" asp-action="Index" class="btn btn-lg btn-outline-danger">Cancel</a>
+    </form>
+</div>

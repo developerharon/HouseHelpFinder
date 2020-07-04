@@ -18,24 +18,20 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" asp-action="Index" asp-controller="Home">Home <span class="sr-only">(current)</span></a>
-                </li>
-                @if (User?.Identity?.IsAuthenticated ?? false)
+                @if (User?.IsInRole("Administrators") ?? false)
                 {
-                    <li class="nav-item">
-                        <a class="nav-link" asp-action="Index" asp-controller="HouseHelp">Profile</a>
-                    </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+                        <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Administrative</a>
                         <div class="dropdown-menu" aria-labelledby="dropdown01">
-                            <a class="dropdown-item" href="#">Action</a>
-                            <a class="dropdown-item" href="#">Action II</a>
-                            <a class="dropdown-item" href="#">Action III</a>
+                            <a class="dropdown-item" asp-action="Index" asp-controller="Admin">Dashboard</a>
+                            <a class="dropdown-item" asp-action="Create" asp-controller="Admin">Create Admin Account</a>
+                            <a class="dropdown-item" asp-action="ListAdmins" asp-controller="Admin">List Admins</a>
+                            <a class="dropdown-item" asp-action="ListHouseHelps" asp-controller="Admin">List HouseHelps</a>
                         </div>
                     </li>
                 }
             </ul>
+
             @if (User?.Identity?.IsAuthenticated ?? false)
             {
                 <div class="my-2 my-lg-0">

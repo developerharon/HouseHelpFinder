@@ -49,7 +49,7 @@ namespace HouseHelpFinder.Controllers
                     _context.Update(user);
                     _context.SaveChanges();
                     TempData["message"] = $"Reach out request sent to {user.UserName}";
-                    return RedirectToAction("List");
+                    return RedirectToAction("Index");
                 }
                 else
                 {

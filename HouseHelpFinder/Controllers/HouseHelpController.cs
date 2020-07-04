@@ -143,8 +143,9 @@ namespace HouseHelpFinder.Controllers
             return View(model);
         }
 
-        public IActionResult ChangePassword() => View();
+        public IActionResult ChangePassword() => View(new ChangePasswordViewModel() { HouseHelpId = CurrentUser.Id });
 
+        [HttpPost]
         public async Task<IActionResult> ChangePassword(ChangePasswordViewModel model)
         {
             // Checks that all the fields are filled before being submitted
@@ -152,7 +153,10 @@ namespace HouseHelpFinder.Controllers
             {
                 // Checks that the user has entered the correct password
                 if (model.NewPassword != model.ConfirmNewPassword)
+                {
                     ModelState.AddModelError("", "Passwords do not match");
+                    return View(model);
+                }
 
                 // Get's the user object from the database
                 ApplicationUser user = await _userManager.FindByIdAsync(model.HouseHelpId);
@@ -166,7 +170,10 @@ namespace HouseHelpFinder.Controllers
 
                 // Checks the user has entered the right current password
                 if (!await _userManager.CheckPasswordAsync(user, model.CurrentPassword))
+                {
                     ModelState.AddModelError("", "Wrong current password! Change not authorized");
+                    return View(model);
+                } 
 
                 // Validates that the new password is strong.
                 IdentityResult validateNewPassword = await _passwordValidator.ValidateAsync(_userManager, user, model.NewPassword);
