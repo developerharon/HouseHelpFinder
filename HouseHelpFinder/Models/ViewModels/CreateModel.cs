@@ -11,5 +11,8 @@ namespace HouseHelpFinder.Models.ViewModels
         [Required]
         [UIHint("password")]
         public string Password { get; set; }
+        [Required]
+        [UIHint("password")]
+        public string ConfirmPassword { get; set; }
     }
 }

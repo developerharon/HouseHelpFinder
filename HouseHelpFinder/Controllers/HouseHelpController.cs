@@ -40,6 +40,12 @@ namespace HouseHelpFinder.Controllers
         {
             if (ModelState.IsValid)
             {
+                if (model.Password != model.ConfirmPassword)
+                {
+                    ModelState.AddModelError("ConfirmPassword", "Passwords do not match");
+                    return View(model);
+                }
+
                 ApplicationUser user = new ApplicationUser
                 {
                     UserName = model.Username,

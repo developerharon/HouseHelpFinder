@@ -26,10 +26,6 @@ namespace HouseHelpFinder.Controllers
             return View(await GetSystemSummaryAsync());
         }
 
-        /// <summary>
-        /// Loops through all the users in the database and passes only the administrators to the default view
-        /// </summary>
-        /// <returns>A view to display all the administrator accounts</returns>
         public async Task<IActionResult> ListAdmins()
         {
             return View(await GetAdminsAsync());
@@ -53,6 +49,12 @@ namespace HouseHelpFinder.Controllers
             // Check if the model has all the properties filled
             if (ModelState.IsValid)
             {
+                if (model.Password != model.ConfirmPassword)
+                {
+                    ModelState.AddModelError("ConfirmPassword", "Passwords do not match");
+                    return View(model);
+                }
+
                 // Create a new Application User model
                 ApplicationUser user = new ApplicationUser
                 {
