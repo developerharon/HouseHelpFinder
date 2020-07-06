@@ -13,11 +13,11 @@
     <table class="table table-bordered">
         <thead>
             <tr>
-                <th style="text-align:right">ID</th>
                 <th>Profile Picture</th>
                 <th>Username</th>
                 <th>Name</th>
                 <th>Email</th>
+                <th>Description</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -33,7 +33,6 @@
                 @foreach (ApplicationUser user in Model)
                 {
                     <tr>
-                        <td style="text-align:right">@user.Id</td>
                         @if (user.ProfilePicture == null)
                         {
                             <td class="text-center"><img src="/images/profile-pic.png" alt="" class="rounded-circle" width="40" height="40" /></td>
@@ -45,6 +44,7 @@
                         <td>@user.UserName</td>
                         <td>@user.Name</td>
                         <td>@user.Email</td>
+                        <td>@user.Description</td>
                         <td>
                             <form asp-action="Delete" asp-controller="Admin" asp-route-id="@user.Id" method="post">
                                 <button type="submit" class="btn btn-sm btn-outline-danger">Delete Account</button>

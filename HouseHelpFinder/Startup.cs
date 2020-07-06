@@ -21,7 +21,7 @@ namespace HouseHelpFinder
         public void ConfigureServices(IServiceCollection services)
         {
             // Registered our database context class as a service
-            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(_configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlite("Filename=./PartyInvites.db"));
             
             // Registered our ApplicationUser and IdentityRole as  service for our identity services
             services.AddIdentity<ApplicationUser, IdentityRole>(options =>
