@@ -4,7 +4,14 @@
     <h1 class="h3 mb-3 font-weight-normal text-center">Profile Page</h1>
 
     <div class="text-center" style="margin-top:35px">
-        <img src="@Model.ProfilePictureUrl" alt="profile-picture" class="rounded-circle" height="250" width="250" />
+        @if (Model.ProfilePicture == null)
+        {
+            <img src="/images/profile-pic.png" alt="profile-picture" class="rounded-circle" height="250" width="250" />
+        }
+        else
+        {
+            <img src="@Model.ProfilePictureUrl" alt="profile-picture" class="rounded-circle" height="250" width="250" />
+        }
     </div>
 
     <div style="min-height:35px"></div>
